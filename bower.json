@@ -1,0 +1,23 @@
+{
+  "name": "musicababel",
+  "description": "An awesome mp3 playerslist of free music.",
+  "main": "index.js",
+  "authors": [
+    "Kevin Oliva y Guillermo Araujo"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/garaujoriestra/MusicaBabel",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.1",
+    "bootstrap": "^3.3.6"
+  }
+}
