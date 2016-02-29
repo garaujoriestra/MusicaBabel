@@ -18,7 +18,7 @@
 				<div class="col-xs-6" name="plus">
 
 					<!-- Button trigger modal -->
-					<button type="button" data-toggle="modal" data-target="#modal-new-song-form">
+					<button id ="button-new-song" type="button" data-toggle="modal" data-target="#modal-new-song-form">
 					  <i class="fa fa-plus-circle"></i>
 					</button>
 
@@ -32,10 +32,10 @@
 					      </div>
 					      <div class="modal-body">
 					        
-							<form>
+							<form novalidate>
 							  <div class="name-form-group">
 							    <label for="name">Nombre del artista</label>
-							    <input type="text" class="form-control" id="name" placeholder="Nombre del artista">
+							    <input type="text" class="auto-focus form-control" id="name" placeholder="Nombre del artista">
 							  </div>
 							  <div class="name-song-form-group">
 							    <label for="name-song">Nombre de la canción</label>
@@ -54,13 +54,15 @@
 							      <input type="checkbox"> Jazz
 							    </label>
 							  </div>
+
+							  	<div class="modal-footer">
+							        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+							        <button id="guardar-canción" type="submit" class="btn btn-primary" >Guarda la canción</button>
+					      		</div>
 							</form>
 
 					      </div>
-					      <div class="modal-footer">
-					        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-					        <button type="button" class="btn btn-primary">Guarda la canción</button>
-					      </div>
+					      
 					    </div>
 					  </div>
 					</div>					
@@ -92,6 +94,7 @@
 
 <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/appMusicaBabel.js"></script>
 
 </body>
 
