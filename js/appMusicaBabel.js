@@ -1,8 +1,9 @@
 /*****************************
 **** DECLARO FUUNCIONES ******
 ******************************/
-function saveSong(artist_name, song_name, song_url){
 
+//Función que guarda una nueva canción en el servidor
+function saveSong(artist_name, song_name, song_url){
 	$.ajax({
 
 		method:"POST",
@@ -15,65 +16,117 @@ function saveSong(artist_name, song_name, song_url){
 		dataType:"json",
 		contentType: "application/json",
 		
+		//Cuando se guarda con éxito, muestro la nueva cancion en la web
+		success: function(data){
+			//Oculto el cartelito con ayuda al meter la primera canción
+			$(".container-ayuda").hide();
+			$(".pag-vacia").css("display", "none");
+			//$(".pag-songs").css("display", "block");
 
-		success: function(){
-			alert("Guardado con éxito");
+			var html = "";
+			var id = data.id;
+			var artist_name = data.artist_name || "";
+			var song_name = data.song_name || "";	
+			html += "<li>"
+			html += "<i class='fa fa-music icono-musica'></i>";
+			html += "<span class='info-song-li'> " + artist_name + ' - ' + song_name + "</span>";
+			html += '<button class="button-play-li" data-songid= "' + id + '"  ><i class="fa fa-play"></i></button>';
+			html += '<button class="button-eliminar-li" data-songid= "' + id + '"  >Eliminar</button>';
+			html += '<button data-songid= "' + id + '"  >Modificar</button>';
+
+			html += "</li>";
+			$(".songsList").append(html);
+			$(".pag-songs").css("display", "block");
 		},
 
 		error: function(){
 			alert("Se ha producido un error");
 		}
-
 	});
 
 };
 
+//Función que pide canciones al servidor para mostrarlas al iniciar la web
 function reloadSongs(){
-
 	$.ajax({
 
 		url:"/api/songs/",
 
 		success: function(data){
-			console.log("CANCIONES RECUPERADAS", data);
 
+			if(data.length===0){
+				$(".pag-vacia").css("display", "block");
 
-			
-			for (var i in data){
-				var html = "";
-				var id = data[i].id;
-				var artist_name = data[i].artist_name || "";
-				var song_name = data[i].song_name || "";	
-				html += "<li>"
-				html += "<i class='fa fa-music icono-musica'></i>";
-				console.log(artist_name, song_name);
-				html += "<span class='info-song-li'> " + artist_name + ' - ' + song_name + "</span>";
-				html += '<button class="button-play-li" data-songid= "' + id + '"  ><i class="fa fa-play"></i></button>';
-				html += '<button class="button-eliminar-li" data-songid= "' + id + '"  >Eliminar</button>';
-				html += '<button data-songid= "' + id + '"  >Modificar</button>';
+			}else{
 
-				html += "</li>";
-				console.log("HTML", html);
-				$(".songsList").append(html);
+				$(".pag-songs").css("display", "block");
+				$(".pag-vacia").css("display", "none");
+				//Oculto el cartelito con ayuda al meter la primera canción
+				$(".container-ayuda").hide();
 
+				for (var i in data){
+					var html = "";
+					var id = data[i].id;
+					console.log(id);
+					var artist_name = data[i].artist_name || "";
+					var song_name = data[i].song_name || "";	
+					html += "<li>"
+					html += "<i class='fa fa-music icono-musica'></i>";
+					html += "<span class='info-song-li'> " + artist_name + ' - ' + song_name + "</span>";
+					html += '<button class="button-play-li" data-songid= "' + id + '"  ><i class="fa fa-play"></i></button>';
+					html += '<button class="button-eliminar-li" data-songid= "' + id + '"  >Eliminar</button>';
+					html += '<button class="button-modificar-li" data-songid= "' + id + '"  >Modificar</button>';
+
+					html += "</li>";
+					$(".songsList").append(html);
+				}	
 			}
+			
+		},
 
-			$(".pag-vacia").addClass("vacia");
-			$(".pag-songs").addClass("llena");
+		error: function(){
+			$(".pag-vacia").css("display", "block");
+			$(".pag-songs").css("display", "none");
 		}
 	});	
 
 };
 
-//
-//Cuando la página se ha cargado por completo
-//
+
+function deleteSong(id){
+	$.ajax({
+
+		method: "delete",
+		url:"/api/songs/" + id,
+		success: function(){
+			$(self).parent().remove();
+		}
+
+	});
+
+}
+
+
+
+/******************************************************
+**** PÁGINA SE CARGA POR COMPLETO *********************
+*******************************************************/
 $(document).ready(function(){	
+
+	/******************************************************
+	**** STARTS: COSAS QUE DEBEN HACERSE AL PRINCIPIO *****
+	*******************************************************/
 
 	//Lo primero que hacemos al cargar la pagina es pedir al servidor las canciones que tenemos
 	//para mostrarlas en el espacio de la lista
+	$(".pag-vacia").css("display", "none");
+	$(".pag-songs").css("display", "none");
 	reloadSongs();
 
+
+	/****************************************************
+	**** PROGRAMO TODOS LOS MANEJADORES DE EVENTOS ******
+	****************************************************/
 
 	//Manejador de eventos: cuando me pulsan al botón(+) para iniciar el formulario de guardar una nueva canción
 	$('#button-new-song').click(function () {
@@ -128,11 +181,30 @@ $(document).ready(function(){
 		saveSong(artist_name, song_name, song_url);
 
 
-
 		//Para ocultar el modal igual que hace el data-dismiss="modal"
 		$('#modal-new-song-form').modal('hide');
 		return false;
 
+	});
+
+	//Manejador de eventos para cuando clickan el botón eliminar canción
+	$("#list").on("click", ".button-eliminar-li", function(){
+		console.log("ELIMINO ");
+
+		var self = this;
+		console.log("THIS", $(this));
+		var id = $(this).data("songid");
+		console.log(id);
+
+		$.ajax({
+
+			method: "delete",
+			url:"/api/songs/" + id,
+			success: function(){
+				$(self).parent().remove();
+			}
+
+		});
 	});
 
 });
