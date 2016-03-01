@@ -28,12 +28,11 @@ function saveSong(artist_name, song_name, song_url){
 			var artist_name = data.artist_name || "";
 			var song_name = data.song_name || "";	
 			html += "<li>"
-			html += "<i class='fa fa-music icono-musica'></i>";
-			html += "<span class='info-song-li'> " + artist_name + ' - ' + song_name + "</span>";
-			html += '<button class="button-play-li" data-songid= "' + id + '"  ><i class="fa fa-play"></i></button>';
-			html += '<button class="button-eliminar-li" data-songid= "' + id + '"  >Eliminar</button>';
-			html += '<button data-songid= "' + id + '"  >Modificar</button>';
-
+			html += "<i class='fa fa-music icono-musica '></i>";
+			html += "<span class='info-song-li'><i> " + artist_name + '</i> - <b>' + song_name + "</b></span>";
+			html += '<div class="wrapper-buttons-list"><button class="button-play-li icono-lista" data-songid= "' + id + '"  ><i class="fa fa-play icono-reproducir"></i></button>';
+			html += '<button class="button-eliminar-li icono-lista" data-songid= "' + id + '"  ><i class="fa fa-trash-o icono-eliminar"></i></button>';
+			html += '<button class="button-modificar-li icono-lista" data-songid= "' + id + '"  ><i class="fa fa-pencil-square-o icono-modificar"></i></button></div>';
 			html += "</li>";
 			$(".songsList").append(html);
 			$(".pag-songs").css("display", "block");
@@ -91,17 +90,56 @@ function reloadSongs(){
 
 };
 
+//Función para hacer un PUT y modificar una canción en la base de datos
+function putSong(artist_name, song_name, song_url, inputHidden){
 
-function deleteSong(id){
 	$.ajax({
 
-		method: "delete",
-		url:"/api/songs/" + id,
-		success: function(){
-			$(self).parent().remove();
-		}
+		method:"PUT",
+		url:"/api/songs/" + inputHidden,
+		data: JSON.stringify({
+			artist_name:artist_name,
+			song_name:song_name,
+			song_url: song_url
+		}),
+		dataType:"json",
+		contentType: "application/json",
+		
+		//Cuando se guarda con éxito, muestro la nueva cancion en la web
+		success: function(data){
+			//Esta a medias, hay que mirar si para modificar hay que borrar la cancion y meter la nueva o como
 
+
+
+			//Oculto el cartelito con ayuda al meter la primera canción
+			$(".container-ayuda").hide();
+			$(".pag-vacia").css("display", "none");
+			//$(".pag-songs").css("display", "block");
+
+
+			var html = "";
+			var id = data.id;
+			var artist_name = data.artist_name || "";
+			var song_name = data.song_name || "";	
+			html += "<li>"
+			html += "<i class='fa fa-music icono-musica '></i>";
+			html += "<span class='info-song-li'><i> " + artist_name + '</i> - <b>' + song_name + "</b></span>";
+			html += '<div class="wrapper-buttons-list"><button class="button-play-li icono-lista" data-songid= "' + id + '"  ><i class="fa fa-play icono-reproducir"></i></button>';
+			html += '<button class="button-eliminar-li icono-lista" data-songid= "' + id + '"  ><i class="fa fa-trash-o icono-eliminar"></i></button>';
+			html += '<button class="button-modificar-li icono-lista" data-songid= "' + id + '"  ><i class="fa fa-pencil-square-o icono-modificar"></i></button></div>';
+			html += "</li>";
+			$(".songsList").append(html);
+			$(".pag-songs").css("display", "block");
+		},
+
+		error: function(){
+			alert("Se ha producido un error");
+		}
 	});
+
+
+
+
 
 }
 
@@ -139,6 +177,7 @@ $(document).ready(function(){
 		$("#name").val("");
 		$("#song-name").val("");
 		$("#song-url").val("");
+		$("#inputHidden").val("");
 		$("#check-rock:checkbox").attr('checked', false);
 		$("#check-pop:checkbox").attr('checked', false);
 		$("#check-hiphop:checkbox").attr('checked', false);
@@ -176,8 +215,18 @@ $(document).ready(function(){
 			return false;	
 		}
 
-		//Una vez validado el formulario, hacemos una petición Ajax para guardar en el servidor
-		saveSong(artist_name, song_name, song_url);
+		var inputHidden = $("#inputHidden").val();
+		console.log("IDHIDDEN", idHidden);
+		if (inputHidden != ""){
+			//Hacemos un PUT
+			//putSong(artist_name, song_name, song_url, inputHidden);
+		}else{
+			//Hacemos un POST
+			//Una vez validado el formulario, hacemos una petición Ajax para guardar en el servidor
+			saveSong(artist_name, song_name, song_url);
+		}
+
+		
 
 
 		//Para ocultar el modal igual que hace el data-dismiss="modal"
@@ -188,22 +237,49 @@ $(document).ready(function(){
 
 	//Manejador de eventos para cuando clickan el botón eliminar canción
 	$("#list").on("click", ".button-eliminar-li", function(){
-		console.log("ELIMINO ");
+		console.log("ELIMINO");
 
 		var self = this;
-		console.log("THIS", $(this));
 		var id = $(this).data("songid");
-		console.log(id);
 
 		$.ajax({
-
 			method: "delete",
 			url:"/api/songs/" + id,
 			success: function(){
-				$(self).parent().remove();
+				$(self).parent().parent().remove();
 			}
-
 		});
 	});
+
+	$("#list").on("click", ".button-modificar-li", function(){
+		console.log("MODIFICO");
+		var id = $(this).data("songid");
+		$.ajax({
+
+			url:"/api/songs/" + id,
+
+			success: function(data){
+				//Muestro el modal
+			    $('#modal-new-song-form').modal({
+			        show: true
+			    });
+				var artist_name = data.artist_name || "";
+				var song_name = data.song_name || "";	
+				var song_url = data.song_url || "";
+
+				$("#name").val(artist_name);
+				$("#song-name").val(song_name);
+				$("#song-url").val(song_url);
+				console.log("ID", id)
+				$("#inputHidden").val(id);
+			},
+
+			error: function(){
+				console.log("ERRRORRRRR");
+			}
+		});	
+
+	});
+
 
 });
