@@ -1,30 +1,33 @@
-.consejo{
-	position: relative;
-	width: 100%;
-	padding: 10px;
-	border: 4px solid #F5F5F5;
-	
-	&:before {
-		border-color: rgba(194, 225, 245, 0);
-		border-widt: 36px;
-		margin-left: -36px;
-		content:"";
-		position: absolute;
+.container-ayuda{
+	padding-top: 45px;
+	.consejo{
+		position: relative;
+		width: 100%;
+		padding: 10px;
+		border: 4px solid #F5F5F5;
+		
+		&:before {
+			border-color: rgba(194, 225, 245, 0);
+			border-widt: 36px;
+			margin-left: -36px;
+			content:"";
+			position: absolute;
+			width: 0;
+			height: 0;
+			margin: ­30px 0 0 90px;
+		}
+
+		.texto-consejo{
+			font-size: 11px;
+
+		}
+	}
+	#triangulo{
 		width: 0;
 		height: 0;
-		margin: ­30px 0 0 90px;
-	}
-
-	.texto-consejo{
-		font-size: 11px;
+		border-bottom: 30px solid #F5F5F5;
+		border-right: 20px solid transparent;
+		border-left: 20px solid transparent;
 
 	}
-}
-#triangulo{
-	width: 0;
-	height: 0;
-	border-bottom: 30px solid #F5F5F5;
-	border-right: 20px solid transparent;
-	border-left: 20px solid transparent;
-
 }
