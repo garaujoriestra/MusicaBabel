@@ -29,54 +29,59 @@
 					  <i class="fa fa-plus-circle"></i>
 					</button>
 
-					<!-- Modal -->
-					<div class="modal fade" id="modal-new-song-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-					  <div class="modal-dialog" role="document">
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					        <h4 class="modal-title" id="myModalLabel">Guarda tu nueva canción</h4>
-					      </div>
-					      <div class="modal-body">
-					        
-							<form novalidate>
-							  <div class="name-form-group">
-							    <label for="name">Nombre del artista</label>
-							    <input type="text" class="form-control" id="name" placeholder="Nombre del artista" required>
-							  </div>
-							  <div class="name-song-form-group">
-							    <label for="name-song">Nombre de la canción</label>
-							    <input type="text" class="form-control" id="song-name" placeholder="Nombre de la canción" required>
-							  </div>
-							  <div class="url-form-group">
-							    <label for="url">Url de la canción</label>
-							    <input type="text" class="form-control" id="song-url" placeholder="Url de la canción" required>
-							  </div>
-							  <div class="genero-form-group" class="checkbox">
-							  	<label for="genero">Marca los géneros de tu canción</label>
-							    <label>
-							      <input id="check-rock" type="checkbox"> Rock
-							      <input id="check-pop" type="checkbox"> Pop
-							      <input id="check-hiphop" type="checkbox"> Hip-Hop
-							      <input id="check-jazz" type="checkbox"> Jazz
-							    </label>
-							  </div>
-
-							  	<div class="modal-footer">
-							        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-							        <button id="guardar-canción" type="submit" class="btn btn-primary" >Guarda la canción</button>
-					      		</div>
-							</form>
-
-					      </div>
-					      
-					    </div>
-					  </div>
-					</div>					
+									
 				</div>
             </div>
         </div>
     </header>
+
+	<!-- Modal -->
+	<div class="modal fade" id="modal-new-song-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Guarda tu nueva canción</h4>
+	      </div>
+	      <div class="modal-body">
+	        
+			<form novalidate>
+			  <div class="name-form-group">
+			    <label for="name">Nombre del artista</label>
+			    <input type="text" class="form-control" id="name" placeholder="Nombre del artista" required>
+			  </div>
+			  <div class="name-song-form-group">
+			    <label for="name-song">Nombre de la canción</label>
+			    <input type="text" class="form-control" id="song-name" placeholder="Nombre de la canción" required>
+			  </div>
+			  <div class="url-form-group">
+			    <label for="url">Url de la canción</label>
+			    <input type="text" class="form-control" id="song-url" placeholder="Url de la canción" required>
+			  </div>
+			  <div class="genero-form-group" class="checkbox">
+			  	<label for="genero">Marca los géneros de tu canción</label>
+			    <label>
+			      <input id="check-rock" type="checkbox"> Rock
+			      <input id="check-pop" type="checkbox"> Pop
+			      <input id="check-hiphop" type="checkbox"> Hip-Hop
+			      <input id="check-jazz" type="checkbox"> Jazz
+			    </label>
+			  </div>
+
+			  	<div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			        <button id="guardar-canción" type="submit" class="btn btn-primary" >Guarda la canción</button>
+	      		</div>
+			</form>
+
+	      </div>
+	      
+	    </div>
+	  </div>
+	</div>	
+
+
+
     <div class="container-ayuda animated pulse">
         <div class="container-fluid">
             <div class="row">
@@ -93,7 +98,7 @@
 	
 
 	
-    <main class="web main full-height">
+    <main class="web main">
         <div class="container">
         	
             <div class="row">
