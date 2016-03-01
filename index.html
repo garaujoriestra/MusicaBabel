@@ -4,55 +4,80 @@
 <head>
     <meta charset="UTF-8">
     <title>MusicaBabel</title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-	
-	<header class="web header">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-xs-6"><h2>LOGO</h2></div>
-				<div class="col-xs-6" name="plus">
-					<button id="button-new-song" type="button" data-toggle="modal" data-target="#form-new-song">
-						<i class="fa fa-plus-circle"></i>
-					</button>
+    <header class="web header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-7">
+                    <div class="wrapper-brand">
+                        <h2 class="brand">Música-Babel!</h2>
+                    </div>
+                </div>
+                <div class="col-xs-5" name="plus">
+                    <button id="button-new-song" type="button" data-toggle="modal" data-target="#form-new-song">
+                        <i class="fa fa-plus-circle btn-add"></i>
+                    </button>
+                    <div id="form-new-song" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                estructura del form
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-					<div id="form-new-song" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-					  <div class="modal-dialog modal-lg">
-					    <div class="modal-content">
-					      estructura del form
-					    </div>
-					  </div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</header>	
-
-	<main class="web main">
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-12">PAGINA EN BLANCO</div>
-			</div>
-		</div>
-		
-	</main>
-
-	<footer class="web footer">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-xs-12">AUDIO</div>
-			</div>
-		</div>
-	</footer>
-
-
-<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
+        </div>
+    </header>
+    <div class="container-fluid">
+        <div class="row">
+	    	<div class="col-xs-7"></div>
+	    	<div class="col-xs-5">
+	    		<div id="triangulo"></div>
+	    		<div class="consejo">
+	    			<p class="texto-consejo">Para empezar, prueba pulsando este botón y añadiendo una canción</p>
+	    		</div>
+    	</div>
+	</div>
+    </div>
+    <main class="web main">
+        <div class="container">
+        	
+            <div class="row">
+                <div class="col-xs-12">
+                	<div class="icono-pagina-blanca img-circle">
+                		<i class="fa fa-headphones"></i>
+                	</div>
+                	<div class="subtitulo-pagina-blanca">
+                		<h4>
+                			Tus canciones favoritas apareceran aquí.
+                		</h4>
+                	</div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="web footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="wrapper-audio">
+                        <audio controls>
+                            <source src="media/bensound-rumble.mp3" type="audio/mpeg">
+                        </audio>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>
