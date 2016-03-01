@@ -1,11 +1,78 @@
 /*****************************
 **** DECLARO FUUNCIONES ******
 ******************************/
+function saveSong(artist_name, song_name, song_url){
+
+	$.ajax({
+
+		method:"POST",
+		url:"/api/songs/",
+		data: JSON.stringify({
+			artist_name:artist_name,
+			song_name:song_name,
+			song_url: song_url
+		}),
+		dataType:"json",
+		contentType: "application/json",
+		
+
+		success: function(){
+			alert("Guardado con éxito");
+		},
+
+		error: function(){
+			alert("Se ha producido un error");
+		}
+
+	});
+
+};
+
+function reloadSongs(){
+
+	$.ajax({
+
+		url:"/api/songs/",
+
+		success: function(data){
+			console.log("CANCIONES RECUPERADAS", data);
+
+
+			
+			for (var i in data){
+				var html = "";
+				var id = data[i].id;
+				var artist_name = data[i].artist_name || "";
+				var song_name = data[i].song_name || "";	
+				html += "<li>"
+				html += "<i class='fa fa-music icono-musica'></i>";
+				console.log(artist_name, song_name);
+				html += "<span class='info-song-li'> " + artist_name + ' - ' + song_name + "</span>";
+				html += '<button class="button-play-li" data-songid= "' + id + '"  ><i class="fa fa-play"></i></button>';
+				html += '<button class="button-eliminar-li" data-songid= "' + id + '"  >Eliminar</button>';
+				html += '<button data-songid= "' + id + '"  >Modificar</button>';
+
+				html += "</li>";
+				console.log("HTML", html);
+				$(".songsList").append(html);
+
+			}
+
+			$(".pag-vacia").addClass("vacia");
+			$(".pag-songs").addClass("llena");
+		}
+	});	
+
+};
 
 //
 //Cuando la página se ha cargado por completo
 //
 $(document).ready(function(){	
+
+	//Lo primero que hacemos al cargar la pagina es pedir al servidor las canciones que tenemos
+	//para mostrarlas en el espacio de la lista
+	reloadSongs();
 
 
 	//Manejador de eventos: cuando me pulsan al botón(+) para iniciar el formulario de guardar una nueva canción
@@ -58,28 +125,7 @@ $(document).ready(function(){
 		}
 
 		//Una vez validado el formulario, hacemos una petición Ajax para guardar en el servidor
-		$.ajax({
-
-			method:"POST",
-			url:"/api/songs/",
-			data: JSON.stringify({
-				name:name,
-				song_name:song_name,
-				song_url: song_url
-			}),
-			dataType:"json",
-			contentType: "application/json",
-			
-
-			success: function(){
-				alert("Guardado con éxito");
-			},
-
-			error: function(){
-				alert("Se ha producido un error");
-			}
-
-		});
+		saveSong(artist_name, song_name, song_url);
 
 
 
