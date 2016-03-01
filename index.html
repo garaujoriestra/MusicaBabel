@@ -12,9 +12,7 @@
 </head>
 
 <body>
-
-
-	<header class="web header">
+    <header class="web header">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-7">
@@ -22,66 +20,55 @@
                         <h2 class="brand">Música-Babel!</h2>
                     </div>
                 </div>
-				<div class="col-xs-5" name="plus">
-
-					<!-- Button trigger modal -->
-					<button id ="button-new-song" type="button" data-toggle="modal">
-					  <i class="fa fa-plus-circle"></i>
-					</button>
-
-									
-				</div>
+                <div class="col-xs-5" name="plus">
+                    <!-- Button trigger modal -->
+                    <button id="button-new-song" type="button" data-toggle="modal">
+                        <i class="fa fa-plus-circle"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
-
-	<!-- Modal -->
-	<div class="modal fade" id="modal-new-song-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="myModalLabel">Guarda tu nueva canción</h4>
-	      </div>
-	      <div class="modal-body">
-	        
-			<form novalidate>
-			  <div class="name-form-group">
-			    <label for="name">Nombre del artista</label>
-			    <input type="text" class="form-control" id="name" placeholder="Nombre del artista" required>
-			  </div>
-			  <div class="name-song-form-group">
-			    <label for="name-song">Nombre de la canción</label>
-			    <input type="text" class="form-control" id="song-name" placeholder="Nombre de la canción" required>
-			  </div>
-			  <div class="url-form-group">
-			    <label for="url">Url de la canción</label>
-			    <input type="text" class="form-control" id="song-url" placeholder="Url de la canción" required>
-			  </div>
-			  <div class="genero-form-group" class="checkbox">
-			  	<label for="genero">Marca los géneros de tu canción</label>
-			    <label>
-			      <input id="check-rock" type="checkbox"> Rock
-			      <input id="check-pop" type="checkbox"> Pop
-			      <input id="check-hiphop" type="checkbox"> Hip-Hop
-			      <input id="check-jazz" type="checkbox"> Jazz
-			    </label>
-			  </div>
-
-			  	<div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-			        <button id="guardar-canción" type="submit" class="btn btn-primary" >Guarda la canción</button>
-	      		</div>
-			</form>
-
-	      </div>
-	      
-	    </div>
-	  </div>
-	</div>	
-
-
-
+    <!-- Modal -->
+    <div class="modal fade" id="modal-new-song-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Guarda tu nueva canción</h4>
+                </div>
+                <div class="modal-body">
+                    <form novalidate>
+                        <div class="name-form-group">
+                            <label for="name">Nombre del artista</label>
+                            <input type="text" class="form-control" id="name" placeholder="Nombre del artista" required>
+                        </div>
+                        <div class="name-song-form-group">
+                            <label for="name-song">Nombre de la canción</label>
+                            <input type="text" class="form-control" id="song-name" placeholder="Nombre de la canción" required>
+                        </div>
+                        <div class="url-form-group">
+                            <label for="url">Url de la canción</label>
+                            <input type="text" class="form-control" id="song-url" placeholder="Url de la canción" required>
+                        </div>
+                        <div class="genero-form-group" class="checkbox">
+                            <label for="genero">Marca los géneros de tu canción</label>
+                            <label>
+                                <input id="check-rock" type="checkbox"> Rock
+                                <input id="check-pop" type="checkbox"> Pop
+                                <input id="check-hiphop" type="checkbox"> Hip-Hop
+                                <input id="check-jazz" type="checkbox"> Jazz
+                            </label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <button id="guardar-canción" type="submit" class="btn btn-primary">Guarda la canción</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container-ayuda animated pulse">
         <div class="container-fluid">
             <div class="row">
@@ -95,40 +82,29 @@
             </div>
         </div>
     </div>
-	
-
-	
     <main class="web main">
         <div class="container">
-        	
             <div class="row">
                 <div class="col-xs-12">
-
-                	<div class="pag-vacia">
-                		<div class="icono-pagina-blanca img-circle">
-                			<i class="fa fa-headphones"></i>
-                		</div>
-                		<div class="subtitulo-pagina-blanca">
-	                		<h4>
-	                			Tus canciones favoritas apareceran aquí.
-	                		</h4>
-                		</div>
-                	</div>
-
-                	<div class="pag-songs">
-
-						<ul class="songsList">
-
-						</ul>
-                	
-                	
-                	</div>
-                	
+                    <div class="pag-vacia">
+                        <div class="icono-pagina-blanca img-circle">
+                            <i class="fa fa-headphones"></i>
+                        </div>
+                        <div class="subtitulo-pagina-blanca">
+                            <h4>
+                                Tus canciones favoritas apareceran aquí.
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="pag-songs">
+                        <h3>Listado de canciones</h3>
+                        <ul class="songsList">
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
-
     <footer class="web footer">
         <div class="container-fluid">
             <div class="row">
@@ -142,12 +118,9 @@
             </div>
         </div>
     </footer>
-
-
-	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-	<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/appMusicaBabel.js"></script>
-
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/appMusicaBabel.js"></script>
 </body>
 
 </html>
