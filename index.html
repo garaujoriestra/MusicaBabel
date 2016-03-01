@@ -18,7 +18,7 @@
 				<div class="col-xs-6" name="plus">
 
 					<!-- Button trigger modal -->
-					<button id ="button-new-song" type="button" data-toggle="modal" data-target="#modal-new-song-form">
+					<button id ="button-new-song" type="button" data-toggle="modal">
 					  <i class="fa fa-plus-circle"></i>
 					</button>
 
@@ -35,23 +35,23 @@
 							<form novalidate>
 							  <div class="name-form-group">
 							    <label for="name">Nombre del artista</label>
-							    <input type="text" class="auto-focus form-control" id="name" placeholder="Nombre del artista">
+							    <input type="text" class="form-control" id="name" placeholder="Nombre del artista" required>
 							  </div>
 							  <div class="name-song-form-group">
 							    <label for="name-song">Nombre de la canción</label>
-							    <input type="text" class="form-control" id="name-song" placeholder="Nombre de la canción">
+							    <input type="text" class="form-control" id="song-name" placeholder="Nombre de la canción" required>
 							  </div>
 							  <div class="url-form-group">
 							    <label for="url">Url de la canción</label>
-							    <input type="text" class="form-control" id="url" placeholder="Url de la canción">
+							    <input type="text" class="form-control" id="song-url" placeholder="Url de la canción" required>
 							  </div>
 							  <div class="genero-form-group" class="checkbox">
 							  	<label for="genero">Marca los géneros de tu canción</label>
 							    <label>
-							      <input type="checkbox"> Rock
-							      <input type="checkbox"> Pop
-							      <input type="checkbox"> Hip-Hop
-							      <input type="checkbox"> Jazz
+							      <input id="check-rock" type="checkbox"> Rock
+							      <input id="check-pop" type="checkbox"> Pop
+							      <input id="check-hiphop" type="checkbox"> Hip-Hop
+							      <input id="check-jazz" type="checkbox"> Jazz
 							    </label>
 							  </div>
 
@@ -66,9 +66,6 @@
 					    </div>
 					  </div>
 					</div>					
-
-				
-
 				</div>
 			</div>
 		</div>
