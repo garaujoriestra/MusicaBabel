@@ -28,12 +28,11 @@ function saveSong(artist_name, song_name, song_url){
 			var artist_name = data.artist_name || "";
 			var song_name = data.song_name || "";	
 			html += "<li>"
-			html += "<i class='fa fa-music icono-musica'></i>";
-			html += "<span class='info-song-li'> " + artist_name + ' - ' + song_name + "</span>";
-			html += '<button class="button-play-li" data-songid= "' + id + '"  ><i class="fa fa-play"></i></button>';
-			html += '<button class="button-eliminar-li" data-songid= "' + id + '"  >Eliminar</button>';
-			html += '<button data-songid= "' + id + '"  >Modificar</button>';
-
+			html += "<i class='fa fa-music icono-musica '></i>";
+			html += "<span class='info-song-li'><i> " + artist_name + '</i> - <b>' + song_name + "</b></span>";
+			html += '<div class="wrapper-buttons-list"><button class="button-play-li icono-lista" data-songid= "' + id + '"  ><i class="fa fa-play icono-reproducir"></i></button>';
+			html += '<button class="button-eliminar-li icono-lista" data-songid= "' + id + '"  ><i class="fa fa-trash-o icono-eliminar"></i></button>';
+			html += '<button class="button-modificar-li icono-lista" data-songid= "' + id + '"  ><i class="fa fa-pencil-square-o icono-modificar"></i></button></div>';
 			html += "</li>";
 			$(".songsList").append(html);
 			$(".pag-songs").css("display", "block");
@@ -74,7 +73,7 @@ function reloadSongs(){
 					html += "<i class='fa fa-music icono-musica '></i>";
 					html += "<span class='info-song-li'><i> " + artist_name + '</i> - <b>' + song_name + "</b></span>";
 					html += '<div class="wrapper-buttons-list"><button class="button-play-li icono-lista" data-songid= "' + id + '"  ><i class="fa fa-play icono-reproducir"></i></button>';
-					html += '<button class="button-eliminar-li icono-lista" data-songid= "' + id + '"  ><i class="fa fa-trash-o icono-eliminar"></i></button>';
+					html += '<button class="button-eliminar-li 	 icono-lista" data-songid= "' + id + '"  ><i class="fa fa-trash-o icono-eliminar"></i></button>';
 					html += '<button class="button-modificar-li icono-lista" data-songid= "' + id + '"  ><i class="fa fa-pencil-square-o icono-modificar"></i></button></div>';
 					html += "</li>";
 					$(".songsList").append(html);
@@ -171,7 +170,8 @@ $(document).ready(function(){
 
 		//validación de la url de la canción
 		var song_url = $.trim( $("#song-url").val() );
-		if (song_url ==="" || (song_url !="" && false == /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/ig.test(song_url))){
+		// if (song_url ==="" || (song_url !="" && false == /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/ig.test(song_url))){
+		if (song_url ===""){
 			alert("La url de la canción no es válida");
 			return false;	
 		}
@@ -200,9 +200,36 @@ $(document).ready(function(){
 			method: "delete",
 			url:"/api/songs/" + id,
 			success: function(){
-				$(self).parent().remove();
+				$(self).parent().parent().remove();
 			}
 
+		});
+	});
+
+	//Manejador de eventos para cuando clickan el botón reproducir la canción
+	$("#list").on("click", ".button-play-li", function(){
+		console.log("REPRODUZCO ");	
+		var id = $(this).data("songid");
+		var self = this;
+		$.ajax({
+			method: "get",
+			url:"/api/songs/" + id,
+			success: function(data){
+				console.log("url",data.song_url);
+				console.log("reproducir : " + "media/bendsound-rumble.mp3");
+				var audio = $("#player");
+				var pathSong = "media/" + data.song_url + ".mp3";
+				$(".wrapper-audio").find("source").attr("src", pathSong);
+				audio[0].pause();
+			    audio[0].load();//suspends and restores all audio element
+			    audio[0].oncanplaythrough = audio[0].play();
+			    console.log($(self).find("i"));
+			    $(self).find("i").removeClass("fa-play");
+			    $(self).find("i").addClass("fa-pause");
+			},
+			error: function(){
+				alert("Se ha producido un error al reproducir la canción");
+			}
 		});
 	});
 
