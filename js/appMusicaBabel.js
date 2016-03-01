@@ -17,13 +17,13 @@ $(document).ready(function(){
 	    });
 
 	    //Inicializo todos los input a vacíos
-		//$("#name").val() = "";
-		//$("#song-name").val() = "";
-		//$("#song-url").val() = "";
-		//$("#check-rock").checked = "false";
-		//$("#check-pop").checked = "false";
-		//$("#check-hiphop").checked = "false";
-		//$("#ccheck-jazz").checked = "false";
+		$("#name").val("");
+		$("#song-name").val("");
+		$("#song-url").val("");
+		$("#check-rock:checkbox").attr('checked', false);
+		$("#check-pop:checkbox").attr('checked', false);
+		$("#check-hiphop:checkbox").attr('checked', false);
+		$("#check-jazz:checkbox").attr('checked', false);
 	});
 
 	//Manejador de eventos: Cuando el model se muestra coloco el focus en el primer input.
@@ -56,6 +56,30 @@ $(document).ready(function(){
 			alert("La url de la canción no es válida");
 			return false;	
 		}
+
+		//Una vez validado el formulario, hacemos una petición Ajax para guardar en el servidor
+		$.ajax({
+
+			method:"POST",
+			url:"/api/songs/",
+			data: JSON.stringify({
+				name:name,
+				song_name:song_name,
+				song_url: song_url
+			}),
+			dataType:"json",
+			contentType: "application/json",
+			
+
+			success: function(){
+				alert("Guardado con éxito");
+			},
+
+			error: function(){
+				alert("Se ha producido un error");
+			}
+
+		});
 
 
 
