@@ -66,7 +66,6 @@ function reloadSongs(){
 				for (var i in data){
 					var html = "";
 					var id = data[i].id;
-					console.log(id);
 					var artist_name = data[i].artist_name || "";
 					var song_name = data[i].song_name || "";	
 					printSong(id, artist_name, song_name);
@@ -253,32 +252,5 @@ $(document).ready(function(){
 				console.log("ERRRORRRRR");
 			}
 		});	
-	});
-
-	//Manejador de eventos para cuando clickan el botón reproducir la canción
-	$("#list").on("click", ".button-play-li", function(){
-		console.log("REPRODUZCO ");	
-		var id = $(this).data("songid");
-		var self = this;
-		$.ajax({
-			method: "get",
-			url:"/api/songs/" + id,
-			success: function(data){
-				console.log("url",data.song_url);
-				console.log("reproducir : " + "media/bendsound-rumble.mp3");
-				var audio = $("#player");
-				var pathSong = "media/" + data.song_url + ".mp3";
-				$(".wrapper-audio").find("source").attr("src", pathSong);
-				audio[0].pause();
-			    audio[0].load();//suspends and restores all audio element
-			    audio[0].oncanplaythrough = audio[0].play();
-			    console.log($(self).find("i"));
-			    $(self).find("i").removeClass("fa-play");
-			    $(self).find("i").addClass("fa-pause");
-			},
-			error: function(){
-				alert("Se ha producido un error al reproducir la canción");
-			}
-		});
 	});
 });
