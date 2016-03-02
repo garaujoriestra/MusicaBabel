@@ -5,7 +5,6 @@
 //Función que guarda una nueva canción en el servidor
 function saveSong(artist_name, song_name, song_url){
 	$.ajax({
-
 		method:"POST",
 		url:"/api/songs/",
 		data: JSON.stringify({
@@ -15,14 +14,12 @@ function saveSong(artist_name, song_name, song_url){
 		}),
 		dataType:"json",
 		contentType: "application/json",
-		
 		//Cuando se guarda con éxito, muestro la nueva cancion en la web
 		success: function(data){
 			//Oculto el cartelito con ayuda al meter la primera canción
 			$(".container-ayuda").hide();
 			$(".pag-vacia").css("display", "none");
 			//$(".pag-songs").css("display", "block");
-
 			var html = "";
 			var id = data.id;
 			var artist_name = data.artist_name || "";
@@ -37,32 +34,23 @@ function saveSong(artist_name, song_name, song_url){
 			$(".songsList").append(html);
 			$(".pag-songs").css("display", "block");
 		},
-
 		error: function(){
 			alert("Se ha producido un error");
 		}
 	});
-
 };
-
 //Función que pide canciones al servidor para mostrarlas al iniciar la web
 function reloadSongs(){
 	$.ajax({
-
 		url:"/api/songs/",
-
 		success: function(data){
-
 			if(data.length===0){
 				$(".pag-vacia").css("display", "block");
-
 			}else{
-
 				$(".pag-songs").css("display", "block");
 				$(".pag-vacia").css("display", "none");
 				//Oculto el cartelito con ayuda al meter la primera canción
 				$(".container-ayuda").hide();
-
 				for (var i in data){
 					var html = "";
 					var id = data[i].id;
@@ -79,31 +67,22 @@ function reloadSongs(){
 					$(".songsList").append(html);
 				}	
 			}
-			
 		},
-
 		error: function(){
 			$(".pag-vacia").css("display", "block");
 			$(".pag-songs").css("display", "none");
 		}
 	});	
-
 };
-
-
 function deleteSong(id){
 	$.ajax({
-
 		method: "delete",
 		url:"/api/songs/" + id,
 		success: function(){
 			$(self).parent().remove();
 		}
-
 	});
-
 }
-
 
 
 /******************************************************
@@ -232,5 +211,4 @@ $(document).ready(function(){
 			}
 		});
 	});
-
 });
