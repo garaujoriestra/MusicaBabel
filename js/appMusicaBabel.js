@@ -102,7 +102,7 @@ function putSong(artist_name, song_name, song_url, inputHidden){
 				}
 
 			});
-
+		},
 		error: function(){
 			alert("Se ha producido un error");
 		}
