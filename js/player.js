@@ -6,7 +6,7 @@ var Player =  {             //Variable Player, objeto para controlar los posible
 	PlayUrl: function(id,url){
 		console.log("Metodo PlayUrl: ",id,url);
 		wrapper_audio.find("source").attr("src", url);
-		audio.attr("data-songid",id);
+		audio.data("songid",id);
 		audio[0].pause();
 		audio[0].load(); //suspends and restores all audio element
 		audio[0].oncanplaythrough = audio[0].play();
@@ -15,7 +15,6 @@ var Player =  {             //Variable Player, objeto para controlar los posible
 		console.log("Metodo PlayNext   idActual: " ,idActual);
 		
 		//Compruebo con la idActual que me pasan, quien es el siguiente y lo reproduzco.
-		var self = this;
 		var idNext = siguienteCancionLi(idActual);
 		console.log("idNext: ", idNext);
 		if( idNext != "" ){
@@ -30,32 +29,34 @@ var Player =  {             //Variable Player, objeto para controlar los posible
 			);
 		}else{
 			console.log("No hay una cancion siguiente para reproducir asique reproduzco la primera");
-
+			reproducirPrimera();
 		}
-/*		$("#list li").each(function(){
-			if($(this).data("songid") == idActual){
-				encontado = true;
-				var nextSong = $(this).next();
-				console.log("NextSong: ", nextSong);
-				$(self).PlayUrl()
-			}
-		});*/
-/*		if(!encontrado){
-			alert("No habia ninguna cancion que fuese siguiente");
-		}*/
 	}
 };
 
+function reproducirPrimera(){
+	var idPrimero = $("#list li:first-child").data("songid");
+	console.log("Primer hijo", idPrimero);
+	obtenerInfo(idPrimero,
+		function(data){
+			Player.PlayUrl(idPrimero,data.song_url);
+		},
+		function(error){
+			alert("Se ha producido un error al reproducir la canción");
+		}
+	);
+}
 function siguienteCancionLi(idActual){
-	var nextSong = "";
+	var nextSong;
 	$("#list li").each(function(){
 		if($(this).data("songid") == idActual){
 			nextSong = $(this).next().data("songid");
-			
-			/*$(self).PlayUrl()*/
+			if(nextSong == undefined){
+				console.log("undefined");
+				nextSong = "";
+			}
 		}
 	});
-	console.log("NextSong: ", nextSong);
 	return nextSong;
 }
 
@@ -94,6 +95,7 @@ $(document).ready(function(){
 	audio.on("ended", function(){
 		console.log("A terminado la cancion, tiene que reproducirse la siguiente");
 		var idActual = audio.data("songid");
+		console.log("ended",idActual);
 		Player.PlayNext(idActual);
 	});
 
