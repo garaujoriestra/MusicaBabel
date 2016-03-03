@@ -1,11 +1,14 @@
 // VARIABLES GLOBALES
 var dobleClick = false;
+var currentId;
 var stop_pulsado = [false,""];
 var audio = $("#player");   //Variable audio, etiqueda audio del html
 var wrapper_audio = $(".wrapper-audio"); 
 var Player =  {             //Variable Player, objeto para controlar los posibles eventos
 	PlayUrl: function(id,url){
 		console.log("play URL", id, url);
+		quitarHover(currentId);
+		currentId = id;
 		cambiarHover(id);
 		wrapper_audio.find("source").attr("src", url);
 		audio.data("songid",id);
@@ -164,23 +167,23 @@ $(document).ready(function(){
 	audio.on("ended", function(){
 		var idActual = audio.data("songid");
 		Player.PlayNext(idActual);
-		quitarHover(idActual);
-	});
+/*		quitarHover(idActual);
+*/	});
 
 	//Manejador de eventos cuando me clickan el botón de siguiente
 	$(".fa-step-forward").click(function(){
 		var idActual = audio.data("songid");
 		Player.PlayNext(idActual);
-		quitarHover(idActual);
-	});
+/*		quitarHover(idActual);
+*/	});
 
 	//Manejador de eventos cuando me clickan el botón de anterior, doble click para ir a la anterior
 	$(".fa-step-backward").dblclick(function(){
 		dobleClick = true;
 		var idActual = audio.data("songid");
 		Player.PlayPrevius(idActual);
-		quitarHover(idActual);
-	});
+/*		quitarHover(idActual);
+*/	});
 
 	//Manejador de eventos cuando me clickan el botón de anterior, 1 click para empezar la que está
 	$(".fa-step-backward").click($.debounce(250, function(e) {
@@ -194,14 +197,13 @@ $(document).ready(function(){
 					alert("Se ha producido un error al reproducir la canción");
 				}
 			);
-		}
-		
+		}	
 	}));
-
 	//Manejador de eventos para reproducir canción con doble click
 	$("#list").on("dblclick", "li", function(){
 		var id = $(this).data("songid");
-		obtenerInfo(id,
+/*		quitarHover(currentId);
+*/		obtenerInfo(id,
 			function(data){
 				Player.PlayUrl(id,data.song_url);
 			},
@@ -210,7 +212,6 @@ $(document).ready(function(){
 			}
 		);
 	});
-
 	//Manejador de eventos para cuando me pulsan el play del reproductor
 	//Siempre empieza la primera
 	$(".fa-play").click(function(){
@@ -218,32 +219,25 @@ $(document).ready(function(){
 			id = stop_pulsado[1];
 			stop_pulsado[0] = false;
 			stop_pulsado[1] = "";
-			
 			obtenerInfo(id,
 			function(data){
 				Player.PlayUrl(id,data.song_url);
 			},
 			function(error){
 				alert("Se ha producido un error al reproducir la canción");
-			}
-			
-		);
-
+			});
 		}else{
 			reproducirPrimera();
 		}
-		
 	});
 
 	//Manejador de eventos para me clickan el stop
 	$(".fa-stop").click(function(){
 		audio[0].pause();
 		audio[0].currentTime = 0;
-		console.log("STOP");
 		$("audio").trigger("timeupdate");
 		stop_pulsado[0] = true;
 		stop_pulsado[1] = audio.data("songid");
-		console.log(stop_pulsado[0], stop_pulsado[1]);
 	});
 
 });
