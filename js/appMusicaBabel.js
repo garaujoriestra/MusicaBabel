@@ -2,7 +2,6 @@
 **** VARIABLES GLOBALES ******
 ******************************/
 
-
 /*****************************
 **** DECLARO FUUNCIONES ******
 ******************************/
@@ -13,7 +12,7 @@ function printSong(id, artist_name, song_name){
 	var html = "";
 	html += '<li class="draggable-li" data-songid= "' + id + '" >'
 	html += "<i class='fa fa-music icono-musica '></i>";
-	html += "<span class='info-song-li'><i> " + artist_name + '</i> - <b>' + song_name + "</b> - "+ id+ "</span>";
+	html += "<span class='info-song-li'><i> " + artist_name + '</i> - <b>' + song_name + "</b></span>";
 	html += '<div class="wrapper-buttons-list"><button class="button-play-li icono-lista" data-songid= "' + id + '"  ><i class="fa fa-play icono-reproducir"></i><i class="fa fa-pause icono-reproducir"></i></button>';
 	html += '<button class="button-eliminar-li icono-lista" data-songid= "' + id + '"  ><i class="fa fa-trash-o icono-eliminar"></i></button>';
 	html += '<button class="button-modificar-li icono-lista" data-songid= "' + id + '"  ><i class="fa fa-pencil-square-o icono-modificar"></i></button></div>';
@@ -110,6 +109,7 @@ function putSong(artist_name, song_name, song_url, inputHidden){
 
 //Función que borra una canción
 function deleteSong(id, self){
+	//alert("¿sEstas seguro de querer borrar esta canción?")
 	$.ajax({
 		method: "delete",
 		url:"/api/songs/" + id,
