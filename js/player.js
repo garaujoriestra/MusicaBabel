@@ -5,6 +5,7 @@ var wrapper_audio = $(".wrapper-audio");
 var Player =  {             //Variable Player, objeto para controlar los posibles eventos
 	PlayUrl: function(id,url){
 		console.log("play URL", id, url);
+		cambiarHover(id);
 		wrapper_audio.find("source").attr("src", url);
 		audio.data("songid",id);
 		audio[0].pause();
@@ -46,6 +47,24 @@ var Player =  {             //Variable Player, objeto para controlar los posible
 	}
 };
 
+function cambiarHover(id){
+	$("#list li").each(function(){
+		if($(this).data("songid") == id){
+			$(this).addClass("active");
+		}
+	});
+}
+function quitarHover(id){
+	$("#list li").each(function(){
+		if($(this).data("songid") == id){
+			$(this).removeClass("active");
+		}
+	});
+}
+function cambiarIconoReproducir(id){
+	icono.removeClass("fa-play");
+	icono.addClass("fa-pause");
+}
 function anteriorCancionLi(idActual){
 	var prevSong = "";
 	$("#list li").each(function(){
@@ -78,7 +97,6 @@ function siguienteCancionLi(idActual){
 		if($(this).data("songid") == idActual){
 			nextSong = $(this).next().data("songid");
 			if(nextSong == undefined){
-				console.log("undefined");
 				nextSong = "";
 			}
 		}
@@ -119,18 +137,21 @@ $(document).ready(function(){
 	audio.on("ended", function(){
 		var idActual = audio.data("songid");
 		Player.PlayNext(idActual);
+		quitarHover(idActual);
 	});
 
 	//Manejador de eventos cuando me clickan el botón de siguiente
 	$(".fa-step-forward").click(function(){
 		var idActual = audio.data("songid");
 		Player.PlayNext(idActual);
+		quitarHover(idActual);
 	});
 
 	//Manejador de eventos cuando me clickan el botón de anterior
 	$(".fa-step-backward").click(function(){
 		var idActual = audio.data("songid");
 		Player.PlayPrevius(idActual);
+		quitarHover(idActual);
 	});
 
 });
