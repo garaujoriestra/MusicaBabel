@@ -1,5 +1,4 @@
 // VARIABLES GLOBALES
-
 var dobleClick = false;
 var currentId;
 var pulsado = ["","",0];
@@ -50,8 +49,21 @@ var Player =  {             //Variable Player, objeto para controlar los posible
 		}else{
 			reproducirPrimera();
 		}
-	}
+	},
 };
+
+
+var globalAjax = $.ajaxSetup({
+	beforeSend: function() {
+		$(".loaderAjax").css("display", "block");
+
+
+	},
+  	complete: function(xhr, status) {
+        $(".loaderAjax").css("display", "none");
+    }
+});
+
 
 function cambiarHover(id){
 	$("#list li").each(function(){
@@ -119,6 +131,7 @@ function siguienteCancionLi(idActual){
 
 //SuccessCallback llamara a una funcion anonima que haga lo que quieras y errorCallback igual pero para cuando sale mal.
 function obtenerInfo(id,successCallback,errorCallback){
+
 	$.ajax({
 		method: "get",
 		url:"/api/songs/" + id,

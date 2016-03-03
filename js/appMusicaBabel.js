@@ -2,7 +2,6 @@
 **** VARIABLES GLOBALES ******
 ******************************/
 
-
 /*****************************
 **** DECLARO FUUNCIONES ******
 ******************************/
@@ -110,6 +109,7 @@ function putSong(artist_name, song_name, song_url, inputHidden){
 
 //Función que borra una canción
 function deleteSong(id, self){
+	//alert("¿sEstas seguro de querer borrar esta canción?")
 	$.ajax({
 		method: "delete",
 		url:"/api/songs/" + id,
