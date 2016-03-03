@@ -8,6 +8,19 @@
 		audio{
 			width: 100%;
 		}
+		#divProgreso{
+			height: 15px;
+			margin: 10px;
+			border: inset 1px #f1f1f1;
+			border-radius: 4px;
+			overflow: hidden;
+		}
+		#divBarra{
+		   width: 4px;
+		   height: 100%;
+		   background: @med;
+		   border-right: solid 2px #f1f1f1;
+		}
 	}
 
 	.next-previus{
@@ -17,19 +30,19 @@
     	text-align: center;
     	height: 35px;
     	.previus{
-    		i{	
-    			margin-top: 8%;
+    		i{	    			
 				height: 20px;
    				width: 20px;
 
     		}
 			background-color: #333;
 			display: inline-block;
-			width: 40%
+			width: 24%;
+			margin-top: 4%;
     	}
     	.next{
     		i{
-    			margin-top: 8%;
+    			
 				height: 20px;
    				width: 20px;
 
@@ -37,7 +50,34 @@
 			background-color: #333;
 			display: inline-block;
 			height: 100%;
-			width: 40%;
+			width: 24%;
+			margin-top: 4%;
+
+    	}
+    	.stop{
+    		i{	
+    			
+				height: 20px;
+   				width: 20px;
+
+    		}
+			background-color: #333;
+			display: inline-block;
+			width: 24%;
+			margin-top: 4%;
+    	}
+    	.play-pause{
+    		i{
+    			
+				height: 20px;
+   				width: 20px;
+
+    		}
+			background-color: #333;
+			display: inline-block;
+			height: 100%;
+			width: 24%;
+			margin-top: 4%;
     	}
 
 	}

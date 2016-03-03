@@ -140,15 +140,25 @@
                         <div class="previus">
                             <i class="fa fa-step-backward"></i>
                         </div>
+                        <div class="play-pause">
+                            <i class="fa fa-play"></i>
+                        </div>
+                        <div class="stop">
+                            <i class="fa fa-stop"></i>
+                        </div>
                         <div class="next">
                             <i class="fa fa-step-forward next"></i>  
                         </div>
+                        
                     </div>                
                 </div>
 
                 <div class="col-xs-12 col-sm-9">
                     <div class="wrapper-audio">
-                        <audio controls muted id="player">
+                        <div id="divProgreso">
+                            <div id="divBarra"></div>                    
+                        </div>
+                        <audio muted id="player">
                             <source src="" type="audio/mpeg">
                         </audio>
                     </div>
