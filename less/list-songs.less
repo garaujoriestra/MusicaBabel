@@ -1,0 +1,62 @@
+.pag-songs{
+	.songsList{
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+		li{
+			padding: 13px;
+			margin: 10px;
+			border: 1px solid @rock;
+			background-color: #e6f3ff;
+			.icono-musica{
+				padding-right: 5px;
+			}
+			.info-song-li{
+				padding-right: 5px;
+			}
+			.wrapper-buttons-list{
+				display: inline;
+				float: right;
+				width: 40%;
+				.icono-lista{
+					background-color: transparent;
+					width: 30%;
+    				display: inline-block;
+    				color: white;
+    				.fa-pause{
+						display: none;
+					}
+					.fa-play{
+						display: inline-block;
+					}
+				}
+				
+				.button-play-li{
+					background-color: @med;
+				}
+				.button-eliminar-li{
+					background-color: #d43f3a;
+				}
+				.button-modificar-li{
+					background-color: #eea236;
+				}
+			}
+
+			&.active{
+				background-color: #b3daff;
+				color: @feind;
+				.fa-pause{
+					display: inline-block !important;
+				}
+				.fa-play{
+					display: none !important;
+				}
+			}
+			&.draggable-li{
+				cursor: move;
+			}
+		}
+
+	}
+}
