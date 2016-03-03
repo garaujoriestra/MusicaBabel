@@ -1,5 +1,5 @@
 // VARIABLES GLOBALES
-
+var dobleClick = false;
 var audio = $("#player");   //Variable audio, etiqueda audio del html
 var wrapper_audio = $(".wrapper-audio"); 
 var Player =  {             //Variable Player, objeto para controlar los posibles eventos
@@ -11,6 +11,7 @@ var Player =  {             //Variable Player, objeto para controlar los posible
 		audio[0].pause();
 		audio[0].load(); //suspends and restores all audio element
 		audio[0].oncanplaythrough = audio[0].play();
+		dobleClick = false;  //vuelvo a poner a false el dobleClick para que una vez hecho no salga siempre.
 	},
 	PlayNext: function(idActual){
 		var idNext = siguienteCancionLi(idActual);
@@ -149,23 +150,27 @@ $(document).ready(function(){
 
 	//Manejador de eventos cuando me clickan el botón de anterior, doble click para ir a la anterior
 	$(".fa-step-backward").dblclick(function(){
+		dobleClick = true;
 		var idActual = audio.data("songid");
 		Player.PlayPrevius(idActual);
 		quitarHover(idActual);
 	});
 
 	//Manejador de eventos cuando me clickan el botón de anterior, 1 click para empezar la que está
-	$(".fa-step-backward").click(function(){
-		var id = audio.data("songid");
-		obtenerInfo(id,
-			function(data){
-				Player.PlayUrl(id,data.song_url);
-			},
-			function(error){
-				alert("Se ha producido un error al reproducir la canción");
-			}
-		);
-	});
+	$(".fa-step-backward").click($.debounce(250, function(e) {
+		if(!dobleClick){
+			var id = audio.data("songid");
+			obtenerInfo(id,
+				function(data){
+					Player.PlayUrl(id,data.song_url);
+				},
+				function(error){
+					alert("Se ha producido un error al reproducir la canción");
+				}
+			);
+		}
+		
+	}));
 
 	//Manejador de eventos para reproducir canción con doble click
 	$("#list").on("dblclick", "li", function(){
