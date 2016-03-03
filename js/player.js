@@ -1,5 +1,4 @@
 // VARIABLES GLOBALES
-
 var dobleClick = false;
 var stop_pulsado = [false,""];
 var audio = $("#player");   //Variable audio, etiqueda audio del html
@@ -47,8 +46,21 @@ var Player =  {             //Variable Player, objeto para controlar los posible
 		}else{
 			reproducirPrimera();
 		}
-	}
+	},
 };
+
+
+var globalAjax = $.ajaxSetup({
+	beforeSend: function() {
+		//Meter lo de cargando para el usuario y pantalla gris
+
+
+	},
+  	complete: function(xhr, status) {
+        //quitar lo gris y dejar usar al usuario
+    }
+});
+
 
 function cambiarHover(id){
 	$("#list li").each(function(){
@@ -111,6 +123,7 @@ function siguienteCancionLi(idActual){
 
 //SuccessCallback llamara a una funcion anonima que haga lo que quieras y errorCallback igual pero para cuando sale mal.
 function obtenerInfo(id,successCallback,errorCallback){
+
 	$.ajax({
 		method: "get",
 		url:"/api/songs/" + id,
