@@ -147,11 +147,37 @@ $(document).ready(function(){
 		quitarHover(idActual);
 	});
 
-	//Manejador de eventos cuando me clickan el botón de anterior
-	$(".fa-step-backward").click(function(){
+	//Manejador de eventos cuando me clickan el botón de anterior, doble click para ir a la anterior
+	$(".fa-step-backward").dblclick(function(){
 		var idActual = audio.data("songid");
 		Player.PlayPrevius(idActual);
 		quitarHover(idActual);
+	});
+
+	//Manejador de eventos cuando me clickan el botón de anterior, 1 click para empezar la que está
+	$(".fa-step-backward").click(function(){
+		var id = audio.data("songid");
+		obtenerInfo(id,
+			function(data){
+				Player.PlayUrl(id,data.song_url);
+			},
+			function(error){
+				alert("Se ha producido un error al reproducir la canción");
+			}
+		);
+	});
+
+	//Manejador de eventos para reproducir canción con doble click
+	$("#list").on("dblclick", "li", function(){
+		var id = $(this).data("songid");
+		obtenerInfo(id,
+			function(data){
+				Player.PlayUrl(id,data.song_url);
+			},
+			function(error){
+				alert("Se ha producido un error al reproducir la canción");
+			}
+		);
 	});
 
 });
