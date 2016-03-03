@@ -1,4 +1,5 @@
 // VARIABLES GLOBALES
+stop_pulsado = [false,""];
 
 var audio = $("#player");   //Variable audio, etiqueda audio del html
 var wrapper_audio = $(".wrapper-audio"); 
@@ -101,6 +102,17 @@ function obtenerInfo(id,successCallback,errorCallback){
 **** PÁGINA SE CARGA POR COMPLETO *********************
 *******************************************************/
 $(document).ready(function(){	
+
+	//Cosas del propio reproductor
+	$("audio").on("timeupdate", function(){
+		var tiempoActual = Math.floor(audio[0].currentTime);
+		var tiempoTotal = Math.floor(audio[0].duration);
+		var porcentaje = (tiempoActual/tiempoTotal)*100;
+		$("#divBarra").width(porcentaje  + "%");
+	});
+
+
+
 	//Manejador de eventos para cuando clickan el botón reproducir la canción
 	$("#list").on("click", ".button-play-li", function(){
 		var id = $(this).data("songid");
@@ -158,4 +170,50 @@ $(document).ready(function(){
 		);
 	});
 
+	//Manejador de eventos para cuando me pulsan el play del reproductor
+	//Siempre empieza la primera
+	$(".fa-play").click(function(){
+		if(stop_pulsado[0] == true){
+			id = stop_pulsado[1];
+			stop_pulsado[0] = false;
+			stop_pulsado[1] = "";
+			
+			obtenerInfo(id,
+			function(data){
+				Player.PlayUrl(id,data.song_url);
+			},
+			function(error){
+				alert("Se ha producido un error al reproducir la canción");
+			}
+			
+		);
+
+		}else{
+			reproducirPrimera();
+		}
+		
+	});
+
+	//Manejador de eventos para me clickan el stop
+	$(".fa-stop").click(function(){
+		audio[0].pause();
+		audio[0].currentTime = 0;
+		console.log("STOP");
+		$("audio").trigger("timeupdate");
+		stop_pulsado[0] = true;
+		stop_pulsado[1] = audio.data("songid");
+		console.log(stop_pulsado[0], stop_pulsado[1]);
+	});
+
 });
+
+
+/* $("audio").bind("timeupdate", function(){
+
+var tiempoActual = Math.floor(audio[0].currentTime);
+var tiempoTotal = Math.floor(audio[0].duration);
+var porcentaje = (tiempoActual/tiempoTotal)*100;
+console.log(tiempoTotal, tiempoActual);
+$("#divBarra").width(porcentaje  + "%");
+});
+*/
