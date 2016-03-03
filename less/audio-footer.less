@@ -40,5 +40,22 @@
 			width: 24%;
 			margin-top: 10px;
     	}
+    	.play-pause{
+    			.fa-pause{
+					display: none;
+				}
+				.fa-play{
+					display: inline-block;
+				}
+    		&.playing-song{
+				.fa-pause{
+					display: inline-block !important;
+				}
+				.fa-play{
+					display: none !important;
+				}
+    		}
+			
+    	}
 	}
 }

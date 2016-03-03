@@ -2,7 +2,7 @@
 
 var dobleClick = false;
 var currentId;
-var stop_pulsado = [false,""];
+var pulsado = ["","",0];
 var audio = $("#player");   //Variable audio, etiqueda audio del html
 var wrapper_audio = $(".wrapper-audio"); 
 var Player =  {             //Variable Player, objeto para controlar los posibles eventos
@@ -56,16 +56,21 @@ var Player =  {             //Variable Player, objeto para controlar los posible
 function cambiarHover(id){
 	$("#list li").each(function(){
 		if($(this).data("songid") == id){
-			$(this).addClass("active");
+			$(this).addClass("active-hover");
+			$(".play-pause").addClass("playing-song");
 		}
 	});
 }
 function quitarHover(id){
 	$("#list li").each(function(){
 		if($(this).data("songid") == id){
-			$(this).removeClass("active");
+			$(this).removeClass("active-hover");
 		}
 	});
+}
+function quitarPauseHover(){
+	var active = $("#list").find(".active");
+	$(active).removeClass("active");
 }
 function cambiarIconoReproducir(id){
 	icono.removeClass("fa-play");
@@ -140,6 +145,7 @@ $(document).ready(function(){
 	//Manejador de eventos para cuando clickan el botón reproducir la canción
 	$("#list").on("click", ".button-play-li", function(){
 		var id = $(this).data("songid");
+
 		obtenerInfo(id,
 			function(data){
 				Player.PlayUrl(id,data.song_url);
@@ -201,11 +207,11 @@ $(document).ready(function(){
 	});
 	//Manejador de eventos para cuando me pulsan el play del reproductor
 	//Siempre empieza la primera
-	$(".fa-play").click(function(){
-		if(stop_pulsado[0] == true){
-			id = stop_pulsado[1];
-			stop_pulsado[0] = false;
-			stop_pulsado[1] = "";
+	$(".play-pause .fa-play").click(function(){
+		if(pulsado[0] == "stop"){
+			id = pulsado[1];
+			pulsado[0] = "";
+			pulsado[1] = "";
 			obtenerInfo(id,
 			function(data){
 				Player.PlayUrl(id,data.song_url);
@@ -213,18 +219,36 @@ $(document).ready(function(){
 			function(error){
 				alert("Se ha producido un error al reproducir la canción");
 			});
+		}else if (pulsado[0] == "pause"){
+			id = pulsado[1];
+			$(".play-pause").addClass("playing-song");
+			audio[0].currentTime = pulsado[2];
+			$("audio").trigger("timeupdate");
+			audio[0].play();
 		}else{
 			reproducirPrimera();
 		}
 	});
-
 	//Manejador de eventos para me clickan el stop
 	$(".fa-stop").click(function(){
 		audio[0].pause();
 		audio[0].currentTime = 0;
 		$("audio").trigger("timeupdate");
-		stop_pulsado[0] = true;
-		stop_pulsado[1] = audio.data("songid");
+		pulsado[0] = "stop";
+		pulsado[1] = audio.data("songid");
+		$(".play-pause").removeClass("playing-song");
+		quitarHover(currentId);
+	});
+
+	//Manejador de eventos cuando hacen click en pause
+	$(".fa-pause").click(function(){
+		audio[0].pause();
+		$(".play-pause").removeClass("playing-song");
+		pulsado[0] = "pause";
+		pulsado[1] = audio.data("songid");
+		pulsado[2] = audio[0].currentTime;
+		console.log(pulsado[2]);
+		quitarPauseHover();
 	});
 
 });
