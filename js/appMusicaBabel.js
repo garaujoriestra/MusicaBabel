@@ -6,6 +6,21 @@
 **** DECLARO FUUNCIONES ******
 ******************************/
 
+
+//Función que me recorre la lista li cada vez que se cambia, para obtener información de ella
+//y guardarla en un array
+
+function infoLi(){
+
+	$("#list li").each(function(){
+		console.log($(this).find(".info-song-li").text());
+	});
+}
+
+
+
+
+
 //Funcion para pintar una sola canción en pantalla(no reload)
 function printSong(id, artist_name, song_name){
 
