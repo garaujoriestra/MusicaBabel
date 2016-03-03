@@ -55,12 +55,12 @@ var Player =  {             //Variable Player, objeto para controlar los posible
 
 var globalAjax = $.ajaxSetup({
 	beforeSend: function() {
-		//Meter lo de cargando para el usuario y pantalla gris
+		$(".loaderAjax").css("display", "block");
 
 
 	},
   	complete: function(xhr, status) {
-        //quitar lo gris y dejar usar al usuario
+        $(".loaderAjax").css("display", "none");
     }
 });
 
