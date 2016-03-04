@@ -26,3 +26,7 @@ Después arranca *grunt*, utilizando el comando ´grunt´.
 * Loader de carga antes de que la página este ready y loader de cada petición ajax.
 * Funcionalidad de Drag&Drop de los elementos de la lista.
 
+### v.2.0.0 - 2016-03-04
+
+* Añadida funcionalidad fuzzy search.
+
