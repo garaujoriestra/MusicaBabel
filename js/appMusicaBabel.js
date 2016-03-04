@@ -43,6 +43,7 @@ function saveSong(artist_name, song_name, song_url){
 			var artist_name = data.artist_name || "";
 			var song_name = data.song_name || "";	
 			printSong(id, artist_name, song_name);
+			getInfoLi();
 		},
 		error: function(){
 			alert("Se ha producido un error");
@@ -70,6 +71,7 @@ function reloadSongs(){
 					printSong(id, artist_name, song_name);
 				}	
 			}
+			getInfoLi();
 		},
 		error: function(){
 			$(".pag-vacia").css("display", "block");
@@ -100,6 +102,7 @@ function putSong(artist_name, song_name, song_url, inputHidden){
 				}
 
 			});
+			getInfoLi();
 		},
 		error: function(){
 			alert("Se ha producido un error");
@@ -119,6 +122,11 @@ function deleteSong(id, self){
 				$(".pag-vacia").css("display", "block");
 				$(".pag-songs").css("display", "none");
 			}
+
+			getInfoLi();
+		},
+		error: function(){
+			alert("Ha habido un problema, no se ha podido borrar la canción")
 		}
 	});
 };
