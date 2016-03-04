@@ -1,9 +1,1 @@
-# Node modules
-node_modules/
-
-# Bower modules
-bower_components/
-
-# Server.py (cosas de su servidor)
-db/
 
