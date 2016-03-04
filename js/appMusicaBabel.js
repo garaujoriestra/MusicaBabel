@@ -98,7 +98,7 @@ function putSong(artist_name, song_name, song_url, inputHidden){
 		success: function(data){
 			$("#list li").each(function(){
 				if($(this).data("songid") == inputHidden){
-					$(this).find(".info-song-li").html('<b>' + song_name + "</b>"  - "<i> " + artist_name + '</i>');
+					$(this).find(".info-song-li").html('<b>' + song_name + "</b> - <i> " + artist_name + '</i>');
 				}
 
 			});
