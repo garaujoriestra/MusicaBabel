@@ -4,6 +4,7 @@ $(document).ready(function(){
 		setTimeout(function(){
 	        $(".loader").fadeOut("slow");
 	    }, 1000);	
+	    
 	}else{
 		$(".title-loader").css("display","none");
 		setTimeout(function(){

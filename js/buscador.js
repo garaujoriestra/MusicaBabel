@@ -28,14 +28,45 @@ function getInfoLi(){
 	var i = 0;
 	$("#list li").each(function(){
 		var string = $(this).find(".info-song-li").text();
-		var dicc = {donItem: $(this),
+		var dicc = {domItem: $(this),
 					text: string};
 
 		infoLi[i] = dicc;
 		i++;
 	});
+};
 
-	
+function mostrarLi(){
+	$("#list li").each(function(){
+		$(this).show();
+	});
+};
+
+function compararString(){
+	console.log(infoLi[0].text);
+	mostrarLi();
+	if (infoLi.length != 0){
+		console.log("METO");
+		for (var i = 0; i < filtro_palabras.length; i++) {
+			for (var j = 0; j < infoLi.length; j++){
+				var textSearch = filtro_palabras[i];
+				var textLi = infoLi[j].text;
+				console.log(textSearch, textLi);
+
+
+
+				if (textLi.indexOf(textSearch)!= -1){
+					console.log("ENCONTRADO");
+
+					
+				}else{
+					console.log("NO ENCONTRADO");
+					infoLi[j].domItem.hide();
+				}
+
+			};
+		};
+	}
 };
 
 $(document).ready(function(){   
@@ -43,7 +74,9 @@ $(document).ready(function(){
 	  console.log("texto",$(".filtro").val());
 	  var datos = $(".filtro").val();
 	  normalizarFiltro(datos);
-}));
+	  compararString();
+	}));
+});
 
 
 

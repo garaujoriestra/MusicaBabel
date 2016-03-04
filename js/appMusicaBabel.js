@@ -46,7 +46,7 @@ function saveSong(artist_name, song_name, song_url){
 			getInfoLi();
 		},
 		error: function(){
-			alert("Se ha producido un error");
+			alert("Se ha producido un error, la canción no se ha guardado bien");
 		}
 	});
 };
@@ -98,14 +98,14 @@ function putSong(artist_name, song_name, song_url, inputHidden){
 		success: function(data){
 			$("#list li").each(function(){
 				if($(this).data("songid") == inputHidden){
-					$(this).find(".info-song-li").html("<i> " + artist_name + '</i> - <b>' + song_name + "</b>");
+					$(this).find(".info-song-li").html('<b>' + song_name + "</b>"  - "<i> " + artist_name + '</i>');
 				}
 
 			});
 			getInfoLi();
 		},
 		error: function(){
-			alert("Se ha producido un error");
+			alert("Se ha producido un error, la canción no se ha modificado.");
 		}
 	});
 };
@@ -140,7 +140,7 @@ $(document).ready(function(){
 	/******************************************************
 	**** STARTS: COSAS QUE DEBEN HACERSE AL PRINCIPIO *****
 	*******************************************************/
-
+	$(".filtro").focus();
 	//Lo primero que hacemos al cargar la pagina es pedir al servidor las canciones que tenemos
 	//para mostrarlas en el espacio de la lista
 	$(".pag-vacia").css("display", "none");
@@ -257,7 +257,7 @@ $(document).ready(function(){
 			},
 
 			error: function(){
-				console.log("ERRRORRRRR");
+				console.log("No se obtienen bien los datos para modificar la canción");
 			}
 		});	
 	});
